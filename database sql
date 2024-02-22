@@ -1,0 +1,30 @@
+CREATE TABLE Items (
+    ItemId INT AUTO_INCREMENT PRIMARY KEY,
+    ItemName VARCHAR(255) NOT NULL,
+    Description TEXT
+);
+
+CREATE TABLE Locations (
+    LocationId INT AUTO_INCREMENT PRIMARY KEY,
+    LocationName VARCHAR(255) NOT NULL,
+    Description TEXT
+);
+
+CREATE TABLE Transactions (
+    TransactionId INT AUTO_INCREMENT PRIMARY KEY,
+    TransactionDateTime DATETIME NOT NULL,
+    TransactionNumber VARCHAR(50) NOT NULL,
+    UNIQUE(TransactionNumber)
+);
+
+CREATE TABLE Messages (
+    MessageId INT AUTO_INCREMENT PRIMARY KEY,
+    ItemId INT NOT NULL,
+    LocationId INT NOT NULL,
+    Quantity INT NOT NULL,
+    TransactionId INT NOT NULL,
+    FOREIGN KEY (ItemId) REFERENCES Items(ItemId),
+    FOREIGN KEY (LocationId) REFERENCES Locations(LocationId),
+    FOREIGN KEY (TransactionId) REFERENCES Transactions(TransactionId),
+    UNIQUE(ItemId, LocationId, TransactionId)
+);
